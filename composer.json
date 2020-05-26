@@ -1,0 +1,73 @@
+{
+    "name": "bk2k/configuration-installer",
+    "type": "composer-plugin",
+    "description": "Configuration Installer",
+    "homepage": "https://github.com/benjaminkott/configuration-installer",
+    "authors": [
+        {
+            "name": "Benjamin Kott",
+            "email": "info@bk2k.info",
+            "role": "Developer",
+            "homepage": "http://www.bk2k.info/"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/benjaminkott/configuration-installer/issues"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "license": "MIT",
+    "require": {
+        "php": "^7.3",
+        "composer-plugin-api": "^1.1 || ^2.0"
+    },
+    "require-dev": {
+        "composer/composer": "^1.10 || ^2.0@dev",
+        "friendsofphp/php-cs-fixer": "^2.16 || ^3.0@dev",
+        "overtrue/phplint": "^2.0",
+        "phpunit/phpunit": "^9.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "BK2K\\ConfigurationInstaller\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BK2K\\ConfigurationInstallerTest\\": "tests/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin",
+        "optimize-autoloader": true,
+        "sort-packages": true,
+        "vendor-dir": "vendor"
+    },
+    "scripts": {
+        "test:php:lint": [
+            "phplint"
+        ],
+        "test:php:unit": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpunit"
+        ],
+        "test:php:cover": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpunit --coverage-html build/coverage-report"
+        ],
+        "test": [
+            "@cgl",
+            "@test:php:lint",
+            "@test:php:unit"
+        ],
+        "cgl:fix": [
+            "php-cs-fixer fix"
+        ],
+        "cgl": [
+            "php-cs-fixer fix --dry-run"
+        ]
+    },
+    "extra": {
+        "class": "BK2K\\ConfigurationInstaller\\Installer\\Plugin"
+    }
+}

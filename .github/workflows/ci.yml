@@ -1,0 +1,65 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build-php:
+    name: PHP ${{ matrix.php-versions }} with Composer ${{ matrix.composer-versions }} on ${{ matrix.operating-system }}
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      max-parallel: 4
+      matrix:
+        operating-system:
+          - 'ubuntu-latest'
+          - 'windows-latest'
+        php-versions:
+          - '7.3'
+          - '7.4'
+        composer-versions:
+          - 'v1'
+          - 'v2'
+    steps:
+
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Set up PHP Version
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        tools: composer:${{ matrix.composer-versions }}
+
+    - name: Environment Check
+      run: |
+        php --version
+        composer --version
+
+    - name: Require Composer@v1
+      if: ${{ matrix.composer-versions == 'v1' }}
+      run: |
+        composer require "composer/composer:^1.10" --dev --no-update
+
+    - name: Require Composer@v2
+      if: ${{ matrix.composer-versions == 'v2' }}
+      run: |
+        composer require "composer/composer:2.0.x-dev" --dev --no-update
+
+    - name: Install
+      run: |
+        composer install --no-progress
+
+    - name: Info
+      run: |
+        composer info
+
+    - name: Lint
+      run: |
+        composer test:php:lint
+
+    - name: CGL
+      run: |
+        composer cgl
+
+    - name: Unit Tests
+      run: |
+        composer test:php:unit
