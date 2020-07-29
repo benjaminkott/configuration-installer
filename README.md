@@ -1,7 +1,11 @@
 # Project Configuration Installer
 
 Installer for Configuration Packages.  
-Example: https://github.com/benjaminkott/config-phpcsfixer-typo3
+
+Examples:
+- https://github.com/benjaminkott/config-typo3-editorconfig
+- https://github.com/benjaminkott/config-typo3-stylelint
+- https://github.com/benjaminkott/config-typo3-phpcsfixer
 
 ## Build your own configuration package
 
