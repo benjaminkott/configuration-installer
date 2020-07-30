@@ -9,9 +9,12 @@
 
 namespace BK2K\ConfigurationInstaller\Installer;
 
+use BK2K\ConfigurationInstaller\Configuration\File;
+use BK2K\ConfigurationInstaller\Configuration\GitignoreEntry;
 use BK2K\ConfigurationInstaller\Configuration\InstallerConfiguration;
 use BK2K\ConfigurationInstaller\Factory\ConfigurationFactory;
 use BK2K\ConfigurationInstaller\Handler;
+use BK2K\ConfigurationInstaller\Service\GitignoreService;
 use Composer\Composer;
 use Composer\Installer\BinaryInstaller;
 use Composer\Installer\LibraryInstaller;
@@ -31,6 +34,17 @@ class ConfigurationInstaller extends LibraryInstaller
             'files' => Handler\FileHandler::class,
             'gitignore' => Handler\GitignoreHandler::class
         ];
+
+        // Force early autoloading of needed classes to
+        // keep them in memory during uninstallation of
+        // the last configuration package.
+        class_exists(File::class, true);
+        class_exists(GitignoreEntry::class, true);
+        class_exists(InstallerConfiguration::class, true);
+        class_exists(ConfigurationFactory::class, true);
+        class_exists(Handler\FileHandler::class, true);
+        class_exists(Handler\GitignoreHandler::class, true);
+        class_exists(GitignoreService::class, true);
     }
 
     public function getHandler($key)
