@@ -3,6 +3,7 @@
 Installer for Configuration Packages.  
 
 Examples:
+- https://github.com/benjaminkott/config-commitmessage
 - https://github.com/benjaminkott/config-typo3-editorconfig
 - https://github.com/benjaminkott/config-typo3-stylelint
 - https://github.com/benjaminkott/config-typo3-phpcsfixer
