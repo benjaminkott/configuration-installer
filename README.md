@@ -43,3 +43,34 @@ The `manifest.json` file instructs the installer.
     ]
 }
 ```
+
+### FileHandler possibilities
+
+In addition to adding local files in your configuration package you could also require 
+files from other packages. In order to do so add a dependency
+```json
+{
+    "type": "project-configuration",
+    "require": {
+        "bk2k/configuration-installer": "*",
+        "fancy/package": "*"
+    }
+}
+   ```
+and use the package name as prefix:
+```json
+{
+    "files": {
+        "fancy/package:somefolder/somefile": "somefolder/somefile"
+    }
+}
+```
+Remember that if you want to include files only available in source but not in dist, that you need to set prefer-source 
+in the projects `composer.json`, not in the configuration package
+```json
+  "config": {
+    "preferred-install": {
+      "fancy/package": "source"
+    }
+  }
+```

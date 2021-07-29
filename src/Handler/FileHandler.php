@@ -20,6 +20,24 @@ class FileHandler extends AbstractHandler
         $packagePath = $this->getPackagePath($package);
         foreach ($installerConfiguration->getFiles() as $file) {
             $source = $this->filesystem->normalizePath($packagePath . '/' . $file->getSource());
+            if (strpos($file->getSource(), ':') !== false) {
+                $parts = explode(':', $file->getSource());
+                if (count($parts) === 2) {
+                    if (!\Composer\InstalledVersions::isInstalled($parts[0])) {
+                        throw new \InvalidArgumentException('Package "' . $parts[0] . '" is not installed as a dependency, thus the source "' . $file->getSource() . '" is not available.');
+                    }
+                    $pathToPackage = \Composer\InstalledVersions::getInstallPath($parts[0]);
+                    // if the source is like vendor/package:file check another packages folder:
+                    $source = $this->filesystem->normalizePath($pathToPackage . '/' . $parts[1]);
+                    if (!file_exists($source)) {
+                        if (!file_exists($this->filesystem->normalizePath($pathToPackage . '/.git'))) {
+                            throw new \InvalidArgumentException('The source "' . $file->getSource() . '" is not available, perhaps you need to prefer-source?');
+                        } else {
+                            throw new \InvalidArgumentException('The source "' . $file->getSource() . '" is not available.');
+                        }
+                    }
+                }
+            }
             $target = $this->filesystem->normalizePath(getcwd() . '/' . $file->getTarget());
             if (!file_exists($source)) {
                 throw new \InvalidArgumentException('The source "' . $source . '" is not available.');
