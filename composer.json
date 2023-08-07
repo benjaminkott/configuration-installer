@@ -18,7 +18,7 @@
     "prefer-stable": true,
     "license": "MIT",
     "require": {
-        "php": "^7.3",
+        "php": "^7.3 || ^8.0",
         "composer-plugin-api": "^1.1 || ^2.0"
     },
     "require-dev": {
