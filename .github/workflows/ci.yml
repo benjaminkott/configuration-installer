@@ -61,6 +61,8 @@ jobs:
         composer test:php:lint
 
     - name: CGL
+      # causes some problems in this combination
+      if: ${{ matrix.composer-versions == 'v2' }}
       run: |
         composer cgl
 
