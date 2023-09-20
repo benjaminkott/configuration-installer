@@ -23,7 +23,7 @@
     },
     "require-dev": {
         "composer/composer": "^1.10 || ^2.0",
-        "friendsofphp/php-cs-fixer": "^2.16 || ^3.0",
+        "friendsofphp/php-cs-fixer": "^3.0",
         "overtrue/phplint": "^2.0",
         "phpunit/phpunit": "^9.2"
     },
