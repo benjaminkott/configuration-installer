@@ -38,7 +38,7 @@ jobs:
     - name: Require Composer@v2
       if: ${{ matrix.composer-versions == 'v2' }}
       run: |
-        composer require "composer/composer:^2.0" --dev --no-update
+        composer require "composer/composer:^2.2.26" --dev --no-update
 
     - name: Install
       run: |
