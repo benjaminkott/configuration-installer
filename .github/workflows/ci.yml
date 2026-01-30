@@ -13,13 +13,12 @@ jobs:
           - 'ubuntu-latest'
           - 'windows-latest'
         php-versions:
-          - '7.3'
-          - '7.4'
           - '8.0'
           - '8.1'
           - '8.2'
+          - '8.3'
+          - '8.4'
         composer-versions:
-          - 'v1'
           - 'v2'
     steps:
 
@@ -37,15 +36,10 @@ jobs:
         php --version
         composer --version
 
-    - name: Require Composer@v1
-      if: ${{ matrix.composer-versions == 'v1' }}
-      run: |
-        composer require "composer/composer:^1.10" --dev --no-update
-
     - name: Require Composer@v2
       if: ${{ matrix.composer-versions == 'v2' }}
       run: |
-        composer require "composer/composer:^2.0" --dev --no-update
+        composer require "composer/composer:^2.2.26" --dev --no-update
 
     - name: Install
       run: |
