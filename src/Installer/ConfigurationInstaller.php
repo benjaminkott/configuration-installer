@@ -27,8 +27,13 @@ class ConfigurationInstaller extends LibraryInstaller
     private $handler;
     private $cache;
 
-    public function __construct(IOInterface $io, Composer $composer, $type = 'project-configuration', Filesystem $filesystem = null, BinaryInstaller $binaryInstaller = null)
-    {
+    public function __construct(
+        IOInterface $io,
+        Composer $composer,
+        $type = 'project-configuration',
+        ?Filesystem $filesystem = null,
+        ?BinaryInstaller $binaryInstaller = null
+    ) {
         parent::__construct($io, $composer, $type, $filesystem, $binaryInstaller);
         $this->handler = [
             'files' => Handler\FileHandler::class,
